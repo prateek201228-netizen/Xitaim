@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypt Macro Xit v1.0.0 [latest]fucked by aku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07050f; --panel:#120d24; --ink:#f4f0ff; --muted:#9a90c4;
+    --r:#ff2d55; --g:#2dff9a; --b:#2d8bff; --p:#c02dff;
+    --rgb:linear-gradient(90deg,#ff2d55,#ffb02d,#2dff9a,#2d8bff,#c02dff,#ff2d55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Rajdhani',sans-serif; font-weight:500; font-size:18px; line-height:1.45;
+    min-height:100vh; overflow-x:hidden;
+  }
+  /* anime speed lines */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-2;
+    background:
+      repeating-conic-gradient(from 0deg at 50% 38%, rgba(192,45,255,.10) 0 2deg, transparent 2deg 7deg),
+      radial-gradient(ellipse at 50% 0%, #2a1060 0%, transparent 60%),
+      radial-gradient(ellipse at 100% 100%, #0b2a5a 0%, transparent 55%);
+  }
+  /* sakura petals */
+  .petal{position:fixed;top:-20px;width:10px;height:14px;border-radius:80% 0 80% 0;background:#ff9ed0;opacity:.7;z-index:-1;animation:fall linear infinite}
+  @keyframes fall{to{transform:translate3d(60px,110vh,0) rotate(540deg)}}
+
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+
+  /* hero */
+  header{text-align:center;padding:34px 0 18px;position:relative}
+  .kanji{
+    position:absolute;left:50%;top:6px;transform:translateX(-50%);
+    font-size:150px;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.08);
+    letter-spacing:10px;pointer-events:none;white-space:nowrap
+  }
+  .ver{
+    display:inline-block;padding:4px 14px;border-radius:99px;font-family:'Orbitron';font-size:12px;letter-spacing:2px;
+    background:#1b1238;border:1px solid #3a2a78;color:var(--g)
+  }
+  h1{
+    font-family:'Bangers',cursive;font-weight:400;font-size:clamp(52px,15vw,100px);line-height:.95;margin:14px 0 6px;
+    letter-spacing:3px;transform:skew(-6deg);
+    background:var(--rgb);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:slide 4s linear infinite; filter:drop-shadow(3px 3px 0 #000) drop-shadow(0 0 18px rgba(192,45,255,.5));
+    position:relative
+  }
+  @keyframes slide{to{background-position:300% 0}}
+  .tag{font-family:'Orbitron';font-size:13px;letter-spacing:3px;color:var(--muted)}
+
+  /* rgb bordered card */
+  .card{position:relative;margin-top:22px;border-radius:18px;padding:2px;background:var(--rgb);background-size:300% 100%;animation:slide 5s linear infinite}
+  .card>.in{background:var(--panel);border-radius:16px;padding:20px}
+  .card h2{font-family:'Orbitron';font-weight:800;font-size:15px;letter-spacing:2px;margin-bottom:14px}
+
+  /* power button */
+  .power{display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 0 6px}
+  .orb{
+    width:132px;height:132px;border-radius:50%;border:0;cursor:pointer;color:#fff;
+    font-family:'Bangers';font-size:26px;letter-spacing:2px;
+    background:radial-gradient(circle at 35% 30%,#7a3bff,#1a0b46 70%);
+    box-shadow:0 0 0 4px #1b1238,0 0 0 6px var(--p),0 0 40px rgba(192,45,255,.6);
+    transition:transform .15s, box-shadow .3s
+  }
+  .orb:active{transform:scale(.94)}
+  .orb.on{background:radial-gradient(circle at 35% 30%,#3bffb0,#06402a 70%);box-shadow:0 0 0 4px #0b2a1e,0 0 0 6px var(--g),0 0 50px rgba(45,255,154,.7)}
+  .orb:focus-visible,.sw:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .status{font-family:'Orbitron';font-size:12px;letter-spacing:2px;color:var(--muted);min-height:18px;text-align:center}
+  .bar{width:100%;height:8px;border-radius:9px;background:#1b1238;overflow:hidden;opacity:0;transition:opacity .2s}
+  .bar.show{opacity:1}
+  .bar i{display:block;height:100%;width:0;background:var(--rgb);background-size:300% 100%;animation:slide 1.2s linear infinite}
+
+  /* features */
+  .feat{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-top:1px solid #241a45}
+  .feat:first-of-type{border-top:0}
+  .feat b{font-weight:700;font-size:19px;display:block}
+  .feat small{color:var(--muted);font-size:15px}
+  .sw{
+    flex:none;width:56px;height:30px;border-radius:30px;border:0;position:relative;cursor:pointer;background:#2a2050;transition:background .25s
+  }
+  .sw::after{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .25s}
+  .sw[aria-checked="true"]{background:var(--rgb);background-size:300% 100%;animation:slide 3s linear infinite}
+  .sw[aria-checked="true"]::after{transform:translateX(26px)}
+
+  /* sliders */
+  .slide-row{padding:12px 0;border-top:1px solid #241a45}
+  .slide-row:first-of-type{border-top:0}
+  .slide-row label{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px}
+  .slide-row output{font-family:'Orbitron';font-size:14px;color:var(--g)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:9px;background:#241a45}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--p);box-shadow:0 0 12px var(--p)}
+  input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--p)}
+
+  /* sensi meter */
+  .meter{display:flex;gap:4px;margin-top:6px}
+  .meter span{flex:1;height:26px;border-radius:4px;background:#241a45;transition:background .2s, box-shadow .2s}
+  .meter span.lit{box-shadow:0 0 10px currentColor}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .btn{
+    padding:12px;border-radius:12px;border:1px solid #3a2a78;background:#1b1238;color:var(--ink);
+    font-family:'Orbitron';font-size:12px;letter-spacing:1.5px;cursor:pointer
+  }
+  .btn:active{transform:scale(.97)}
+
+  .uid-row{display:flex;gap:10px}
+  .uid-row input{
+    flex:1;min-width:0;padding:13px 14px;border-radius:12px;border:1px solid #3a2a78;background:#07050f;color:var(--ink);
+    font-family:'Orbitron';font-size:15px;letter-spacing:2px
+  }
+  .uid-row input::placeholder{color:#5d5490;letter-spacing:1px}
+  .uid-row .btn{flex:none;background:var(--rgb);background-size:300% 100%;animation:slide 4s linear infinite;color:#fff;border:0;font-weight:800;text-shadow:0 1px 3px #000}
+  .uid-msg{margin-top:12px;font-family:'Orbitron';font-size:13px;letter-spacing:1px;min-height:20px}
+  .uid-msg.ok{color:var(--g);text-shadow:0 0 12px rgba(45,255,154,.7)}
+  .uid-msg.err{color:var(--r)}
+  .log{font-family:'Orbitron';font-size:12px;color:var(--g);background:#07050f;border-radius:10px;padding:12px;min-height:84px;line-height:1.8}
+  footer{text-align:center;margin-top:30px;color:var(--muted);font-size:15px}
+  footer .credit{font-family:'Bangers';font-size:22px;letter-spacing:2px;color:var(--ink)}
+  .note{margin-top:10px;font-size:14px;color:#7a70a6}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .petal{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kanji" aria-hidden="true">無限</div>
+    <span class="ver">VERSION 1.0.0</span>
+    <h1>Chinese Crypt Macro Xit</h1>
+    <p class="tag">SENSI BOOST PANEL XUAWAN</p>
+  </header>
+
+  <section class="card">
+    <div class="in">
+      <div class="power">
+        <button class="orb" id="orb" aria-pressed="false">START</button>
+        <div class="bar" id="bar"><i id="barfill"></i></div>
+        <div class="status" id="status">STANDBY</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="in">
+      <h2>PLAYER UID</h2>
+      <div class="uid-row">
+        <input id="uid" type="text" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="Enter UID" aria-label="Player UID">
+        <button class="btn" id="attach">ATTACH</button>
+      </div>
+      <div class="uid-msg" id="uidmsg" role="status"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="in">
+      <h2>SENSI BOOST</h2>
+      <div class="slide-row">
+        <label for="s1">General sensitivity <output id="o1">120</output></label>
+        <input type="range" id="s1" min="0" max="200" value="120">
+      </div>
+      <div class="slide-row">
+        <label for="s2">Red dot <output id="o2">95</output></label>
+        <input type="range" id="s2" min="0" max="200" value="95">
+      </div>
+      <div class="slide-row">
+        <label for="s3">Scope <output id="o3">80</output></label>
+        <input type="range" id="s3" min="0" max="200" value="80">
+      </div>
+      <div class="meter" id="meter" aria-hidden="true"></div>
+      <div class="row2">
+        <button class="btn" id="rand">RANDOMIZE</button>
+        <button class="btn" id="reset">RESET</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="in">
+      <h2>FEATURES</h2>
+      <div class="feat"><div><b>Sensi Boost</b><small>Adds a visual boost to the sliders above</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Sensi Boost"></button></div>
+      <div class="feat"><div><b>Drag Assist</b><small>Smooth drag preview</small></div><button class="sw" role="switch" aria-checked="false" aria-label="Drag Assist"></button></div>
+      <div class="feat"><div><b>Quick Swap</b><small>Demo toggle</small></div><button class="sw" role="switch" aria-checked="false" aria-label="Quick Swap"></button></div>
+      <div class="feat"><div><b>Gyro Smooth</b><small>Demo toggle</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Gyro Smooth"></button></div>
+      <div class="feat"><div><b>RGB Overlay</b><small>Color-shifts the whole page</small></div><button class="sw" id="hue" role="switch" aria-checked="false" aria-label="RGB Overlay"></button></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="in">
+      <h2>LOG</h2>
+      <div class="log" id="log">&gt; ready</div>
+      <p class="note">This is a Chin3se Xuawan Cracked Web port That enhaces gameplay</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="credit">Cracked by Immortal Aku</div>
+    <div>Crypt Macro Xit v1.0.0</div>
+  </footer>
+</div>
+
+<script>
+  // petals
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = 8 + Math.random() * 10 + 's';
+    p.style.animationDelay = -Math.random() * 12 + 's';
+    p.style.transform = 'scale(' + (0.6 + Math.random() * 0.8) + ')';
+    document.body.appendChild(p);
+  }
+
+  const $ = id => document.getElementById(id);
+  const log = msg => {
+    const el = $('log');
+    el.innerHTML = '&gt; ' + msg + '<br>' + el.innerHTML.split('<br>').slice(0, 4).join('<br>');
+  };
+
+  // meter
+  const meter = $('meter');
+  for (let i = 0; i < 20; i++) meter.appendChild(document.createElement('span'));
+  const colors = ['#2dff9a', '#2dff9a', '#2dff9a', '#2d8bff', '#2d8bff', '#2d8bff', '#c02dff', '#c02dff', '#ff2d55', '#ff2d55'];
+  function paintMeter() {
+    const vals = ['s1', 's2', 's3'].map(id => +$(id).value);
+    const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+    const lit = Math.round(avg / 200 * 20);
+    [...meter.children].forEach((s, i) => {
+      const c = colors[Math.floor(i / 2)];
+      s.style.background = i < lit ? c : '';
+      s.style.color = c;
+      s.classList.toggle('lit', i < lit);
+    });
+  }
+  ['1', '2', '3'].forEach(n => {
+    $('s' + n).addEventListener('input', e => { $('o' + n).textContent = e.target.value; paintMeter(); });
+  });
+  paintMeter();
+
+  $('rand').onclick = () => {
+    ['1', '2', '3'].forEach(n => {
+      const v = Math.floor(Math.random() * 201);
+      $('s' + n).value = v; $('o' + n).textContent = v;
+    });
+    paintMeter(); log('random values set');
+  };
+  $('reset').onclick = () => {
+    const d = { 1: 120, 2: 95, 3: 80 };
+    Object.keys(d).forEach(n => { $('s' + n).value = d[n]; $('o' + n).textContent = d[n]; });
+    paintMeter(); log('values reset');
+  };
+
+  // switches
+  document.querySelectorAll('.sw').forEach(sw => {
+    sw.onclick = () => {
+      const on = sw.getAttribute('aria-checked') !== 'true';
+      sw.setAttribute('aria-checked', on);
+      log(sw.getAttribute('aria-label') + (on ? ' on' : ' off'));
+    };
+  });
+  let hue = 0, hueTimer;
+  $('hue').addEventListener('click', () => {
+    if ($('hue').getAttribute('aria-checked') === 'true') {
+      hueTimer = setInterval(() => { hue = (hue + 2) % 360; document.body.style.filter = 'hue-rotate(' + hue + 'deg)'; }, 60);
+    } else { clearInterval(hueTimer); document.body.style.filter = ''; }
+  });
+
+  // UID attach (demo only, nothing is sent or stored)
+  $('uid').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, ''); });
+  $('attach').onclick = () => {
+    const uid = $('uid').value.trim(), msg = $('uidmsg'), btn = $('attach');
+    if (uid.length < 6) {
+      msg.className = 'uid-msg err'; msg.textContent = 'ENTER A VALID UID (6-12 DIGITS)'; return;
+    }
+    btn.disabled = true; msg.className = 'uid-msg';
+    const steps = ['SEARCHING UID...', 'CONNECTING...', 'INJECTING BOOST...'];
+    let i = 0; msg.textContent = steps[0];
+    const t = setInterval(() => {
+      i++;
+      if (i < steps.length) { msg.textContent = steps[i]; return; }
+      clearInterval(t); btn.disabled = false;
+      msg.className = 'uid-msg ok';
+      msg.textContent = 'HACK ATTACHED TO UID ' + uid + ' [SAFE]';
+      log('hack attached to ' + uid + ' (SAFE)');
+    }, 900);
+  };
+
+  // start button (fake loading)
+  let running = false, busy = false;
+  $('orb').onclick = () => {
+    if (busy) return;
+    const orb = $('orb'), bar = $('bar'), fill = $('barfill'), st = $('status');
+    if (running) {
+      running = false; orb.classList.remove('on'); orb.textContent = 'START';
+      orb.setAttribute('aria-pressed', 'false'); st.textContent = 'STANDBY'; log('stopped'); return;
+    }
+    busy = true; bar.classList.add('show'); let p = 0;
+    const steps = ['PATCHING SERVER', 'SYNCING SENSI', 'APPLYING BOOST', 'READY'];
+    const t = setInterval(() => {
+      p += 4 + Math.random() * 6;
+      if (p >= 100) {
+        p = 100; clearInterval(t); busy = false; running = true;
+        orb.classList.add('on'); orb.textContent = 'STOP'; orb.setAttribute('aria-pressed', 'true');
+        st.textContent = 'ACTIVE (Server Patch3d | Hack appli3d succesfully)'; log('boost active (demo)');
+        setTimeout(() => bar.classList.remove('show'), 500);
+      } else { st.textContent = steps[Math.min(3, Math.floor(p / 26))]; }
+      fill.style.width = p + '%';
+    }, 120);
+  };
+</script>
+</body>
+</html>
